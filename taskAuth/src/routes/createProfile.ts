@@ -36,7 +36,7 @@ const createProfile = (): Router => {
       const userAlreadyExists = await User.findOne({ email });
 
       if (userAlreadyExists) {
-        throw new BadRequestError('Email already in use');
+        throw new BadRequestError('The email address is already in use.');
       }
 
       const user = User.createNewUser({

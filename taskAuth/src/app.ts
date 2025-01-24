@@ -1,5 +1,6 @@
 import { config } from 'dotenv';
 config();
+import 'express-async-errors';
 import express from 'express';
 import morgan from 'morgan';
 import cookieSession from 'cookie-session';
