@@ -39,12 +39,29 @@ const createProfile = (): Router => {
         throw new BadRequestError('The email address is already in use.');
       }
 
-      const user = User.createNewUser({
+      interface UserToBeCreatedInterface {
+        username: string;
+        firstName: string;
+        lastName: string;
+        email: string;
+        password: string;
+        role?: string;
+      }
+
+      const userToBeCreated: UserToBeCreatedInterface = {
         username,
         firstName,
         lastName,
         email,
         password,
+      };
+
+      if ((req.user && req.user.role === 'admin') || role === 'user') {
+        userToBeCreated.role = role;
+      }
+
+      const user = User.createNewUser({
+        ...userToBeCreated,
       });
 
       await user.save();
