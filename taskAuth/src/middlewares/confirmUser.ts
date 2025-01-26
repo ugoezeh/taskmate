@@ -24,7 +24,7 @@ const confirmUser = (req: Request, res: Response, next: NextFunction): void => {
   try {
     const payload = jwt.verify(
       req.session!.jwt,
-      process.env.JWT_KEY!
+      process.env.JWT_SECRET!
     ) as UserInfo;
     req.user = payload;
   } catch (error) {
