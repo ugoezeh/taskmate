@@ -1,7 +1,7 @@
 import { config } from 'dotenv';
 config();
 import 'express-async-errors';
-import express from 'express';
+import express, { Application } from 'express';
 import morgan from 'morgan';
 import cookieSession from 'cookie-session';
 
@@ -10,8 +10,9 @@ import errorHandler from './middlewares/errorHandler';
 
 import getTasks from './routes/getUsers';
 import createProfile from './routes/signup';
+import signinToProfile from './routes/signin';
 
-const app = express();
+const app: Application = express();
 
 const isProduction = process.env.NODE_ENV === 'production';
 
@@ -35,6 +36,7 @@ app.use(
 app.use(confirmUser);
 
 app.use('/api/users/signup', createProfile());
+app.use('/api/users/signin', signinToProfile());
 app.use('/api/users', getTasks());
 
 app.use(errorHandler);

@@ -15,7 +15,9 @@ const createProfile = (): Router => {
         .notEmpty()
         .isLength({ min: 3, max: 40 })
         .withMessage('Your username must be between 3 to 40 characters'),
-      body('email').isEmail().withMessage('Enter a valid email to continue'),
+      body('email')
+        .isEmail()
+        .withMessage('Enter a valid email address to continue'),
       body('password')
         .trim()
         .isLength({ min: 5, max: 100 })
