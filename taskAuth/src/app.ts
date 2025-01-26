@@ -11,6 +11,7 @@ import errorHandler from './middlewares/errorHandler';
 import getTasks from './routes/getUsers';
 import createProfile from './routes/signup';
 import signinToProfile from './routes/signin';
+import signoutOfProfile from './routes/signout';
 import getUserProfile from './routes/currentUser';
 
 const app: Application = express();
@@ -38,6 +39,7 @@ app.use(confirmUser);
 
 app.use('/api/users/signup', createProfile());
 app.use('/api/users/signin', signinToProfile());
+app.use('/api/users/signout', signoutOfProfile());
 app.use('/api/users/currentuser', getUserProfile());
 app.use('/api/users', getTasks());
 
