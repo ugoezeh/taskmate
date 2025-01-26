@@ -9,7 +9,7 @@ import confirmUser from './middlewares/confirmUser';
 import errorHandler from './middlewares/errorHandler';
 
 import getTasks from './routes/getUsers';
-import createProfile from './routes/createProfile';
+import createProfile from './routes/signup';
 
 const app = express();
 
@@ -20,7 +20,7 @@ if (isProduction) {
 }
 
 if (!isProduction) {
-  app.use(morgan('tiny'));
+  app.use(morgan('dev'));
 }
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
@@ -34,7 +34,7 @@ app.use(
 
 app.use(confirmUser);
 
-app.use('/api/users/create', createProfile());
+app.use('/api/users/signup', createProfile());
 app.use('/api/users', getTasks());
 
 app.use(errorHandler);

@@ -3,8 +3,6 @@ import jwt from 'jsonwebtoken';
 
 interface UserInfo {
   username: string;
-  firstName: string;
-  lastname: string;
   email: string;
   id: string;
   role: string;

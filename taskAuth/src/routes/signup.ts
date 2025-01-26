@@ -1,6 +1,6 @@
 import { Router, Request, Response } from 'express';
 import { body } from 'express-validator';
-
+import jwt from 'jsonwebtoken';
 import User from '../models/user';
 import BadRequestError from '../errors/BadRequestError';
 import userInputValidation from '../middlewares/userInputValidation';
@@ -15,14 +15,6 @@ const createProfile = (): Router => {
         .notEmpty()
         .isLength({ min: 3, max: 40 })
         .withMessage('Your username must be between 3 to 40 characters'),
-      body('firstName')
-        .notEmpty()
-        .isLength({ min: 2, max: 40 })
-        .withMessage('Your firstname must not be empty'),
-      body('lastName')
-        .notEmpty()
-        .isLength({ min: 2, max: 40 })
-        .withMessage('Your lastname must not be empty'),
       body('email').isEmail().withMessage('Enter a valid email to continue'),
       body('password')
         .trim()
@@ -31,7 +23,7 @@ const createProfile = (): Router => {
     ],
     userInputValidation,
     async (req: Request, res: Response) => {
-      const { username, firstName, lastName, email, password, role } = req.body;
+      const { username, email, password, role } = req.body;
 
       const userAlreadyExists = await User.findOne({ email });
 
@@ -41,8 +33,6 @@ const createProfile = (): Router => {
 
       interface UserToBeCreatedInterface {
         username: string;
-        firstName: string;
-        lastName: string;
         email: string;
         password: string;
         role?: string;
@@ -50,8 +40,6 @@ const createProfile = (): Router => {
 
       const userToBeCreated: UserToBeCreatedInterface = {
         username,
-        firstName,
-        lastName,
         email,
         password,
       };
@@ -65,6 +53,23 @@ const createProfile = (): Router => {
       });
 
       await user.save();
+
+      //TODO-1: Genrate a json web token for the user
+      const userJwtToken = jwt.sign(
+        {
+          id: user._id,
+          username: user.username,
+          email: user.email,
+          role: user.role,
+        },
+        process.env.JWT_SECRET!
+      );
+
+      //TODO-2: Store it on the session object
+
+      req.session = {
+        jwt: userJwtToken,
+      };
 
       res.status(201).json(user);
     }

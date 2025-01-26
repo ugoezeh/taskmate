@@ -6,8 +6,6 @@ import Password from '../services/password';
 
 interface UserDetails {
   username: string;
-  firstName: string;
-  lastName: string;
   email: string;
   password: string;
 }
@@ -21,8 +19,6 @@ interface UserModel extends Model<UserDocument> {
 //An interface that describes the properties that a user document has
 interface UserDocument extends Document {
   username: string;
-  firstName: string;
-  lastName: string;
   email: string;
   password: string;
   role: string;
@@ -36,14 +32,7 @@ const userSchema = new Schema(
       type: String,
       required: true,
     },
-    firstName: {
-      type: String,
-      required: true,
-    },
-    lastName: {
-      type: String,
-      required: true,
-    },
+
     email: {
       type: String,
       required: true,

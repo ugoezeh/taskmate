@@ -2,26 +2,22 @@ import request from 'supertest';
 
 import app from '../../app';
 
-it('Should return a status code of 400 if the right arguments are not passed', async () => {
-  await request(app)
-    .post('/api/users/create')
+it('Should return a status code of 400 if the right arguments are not passed to the request body', async () => {
+  const { body } = await request(app)
+    .post('/api/users/signup')
     .send({
       username: 'ucheche',
-      firstName: 'fisrtName',
-      lastName: 'lastName',
       email: 'email@email.com',
-      password: '',
+      password: 'pa',
     })
     .expect(400);
 });
 
-it('Should return a status code of 201 if the right arguments are passed', async () => {
+it('Should return a status code of 201 if the right arguments are passed to the request body', async () => {
   const { body } = await request(app)
-    .post('/api/users/create')
+    .post('/api/users/signup')
     .send({
       username: 'ucheche',
-      firstName: 'fisrtName',
-      lastName: 'lastName',
       email: 'email@email.com',
       password: 'password',
     })
@@ -30,23 +26,28 @@ it('Should return a status code of 201 if the right arguments are passed', async
 
 it('Should return a status code of 400 if the email already exists', async () => {
   await request(app)
-    .post('/api/users/create')
+    .post('/api/users/signup')
     .send({
       username: 'ucheche',
-      firstName: 'fisrtName',
-      lastName: 'lastName',
       email: 'uche@email.com',
       password: 'password',
     })
     .expect(201);
   await request(app)
-    .post('/api/users/create')
+    .post('/api/users/signup')
     .send({
       username: 'ucheche',
-      firstName: 'fisrtName',
-      lastName: 'lastName',
       email: 'uche@email.com',
       password: 'password',
     })
     .expect(400);
+});
+
+it('Sets a cookie after a successfull signup', async () => {
+  const response = await request(app)
+    .post('/api/users/signup')
+    .send({ username: 'uche', email: 'uche@uche.com', password: 'password' })
+    .expect(201);
+
+  expect(response.get('Set-Cookie')).toBeDefined();
 });
