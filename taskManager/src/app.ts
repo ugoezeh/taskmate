@@ -1,9 +1,12 @@
 import { config } from 'dotenv';
 config();
 import 'express-async-errors';
-import express, { Application } from 'express';
+import express, { Application, Request, Response } from 'express';
 import cookieSession from 'cookie-session';
 import morgan from 'morgan';
+import { NotFoundError } from '@taskmate/shared';
+
+import createTask from './routes/createTask';
 
 const app: Application = express();
 const isProduction = process.env.NODE_ENV === 'production';
@@ -16,7 +19,6 @@ if (!isProduction) {
 }
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
-app.use(cookieSession({ signed: false, secure: false }));
 app.use(
   cookieSession({
     secure: isProduction,
@@ -25,5 +27,11 @@ app.use(
     keys: [process.env.COOKIE_SECRET!],
   })
 );
+
+app.use('/api/tasks/create', createTask());
+
+app.all('*', async (req: Request, res: Response) => {
+  throw new NotFoundError('The requested resource could not be found.');
+});
 
 export default app;
