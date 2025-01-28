@@ -1,10 +1,9 @@
 import { Request, Response, Router } from 'express';
 import { body } from 'express-validator';
 import jwt from 'jsonwebtoken';
+import { BadRequestError, userInputValidation } from '@taskmate/shared';
 
-import userInputValidation from '../middlewares/userInputValidation';
 import User from '../models/user';
-import BadRequestError from '../errors/BadRequestError';
 import Password from '../services/password';
 
 const signinToProfile = (): Router => {

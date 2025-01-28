@@ -4,9 +4,7 @@ import 'express-async-errors';
 import express, { Application } from 'express';
 import morgan from 'morgan';
 import cookieSession from 'cookie-session';
-
-import confirmUser from './middlewares/confirmUser';
-import errorHandler from './middlewares/errorHandler';
+import { confirmUser, errorHandler } from '@taskmate/shared';
 
 import getTasks from './routes/getUsers';
 import createProfile from './routes/signup';

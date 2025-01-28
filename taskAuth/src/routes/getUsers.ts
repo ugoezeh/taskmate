@@ -1,8 +1,7 @@
 import { Router, Request, Response } from 'express';
+import { requireAuthentication, NotAuthorizedError } from '@taskmate/shared';
 
 import User from '../models/user';
-import requireAuthentication from '../middlewares/requireAuthentication';
-import NotAuthorizedError from '../errors/NotAuthorizedError';
 
 const getUsers = (): Router => {
   const getUsersRouter = Router();
