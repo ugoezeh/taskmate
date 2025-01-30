@@ -2,13 +2,23 @@ import request from 'supertest';
 
 import app from '../../app';
 
-it('should return 400 if the task is not provided', async () => {
+import { personOneCookie } from '../../test/setup';
+
+it('should return a status of 400 if the task is not provided', async () => {
   await request(app).post('/api/tasks/create').send({}).expect(400);
 });
 
-it('should return 401 if the person is not logged in', async () => {
+it('should return a status of 401 if the person is not logged in', async () => {
   await request(app)
     .post('/api/tasks/create')
     .send({ task: 'Just a random task' })
     .expect(401);
+});
+
+it('should return status of 201 if the person is logged in', async () => {
+  const response = await request(app)
+    .post('/api/tasks/create')
+    .set('Cookie', personOneCookie())
+    .send({ task: 'Just a random task' })
+    .expect(201);
 });

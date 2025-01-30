@@ -46,8 +46,9 @@ it('Should return a status code of 400 if the email already exists', async () =>
 it('Sets a cookie after a successfull signup', async () => {
   const response = await request(app)
     .post('/api/users/signup')
-    .send({ username: 'uche', email: 'uche@uche.com', password: 'password' })
+    .send({ username: 'edu', email: 'edu@email.com', password: 'password' })
     .expect(201);
 
   expect(response.get('Set-Cookie')).toBeDefined();
+  console.log(response.get('Set-Cookie'));
 });

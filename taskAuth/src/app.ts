@@ -1,12 +1,12 @@
 import { config } from 'dotenv';
 config();
 import 'express-async-errors';
-import express, { Application } from 'express';
+import express, { Application, Request, Response } from 'express';
 import morgan from 'morgan';
 import cookieSession from 'cookie-session';
-import { confirmUser, errorHandler } from '@taskmate/shared';
+import { confirmUser, errorHandler, NotFoundError } from '@taskmate/shared';
 
-import getTasks from './routes/getUsers';
+import getUsers from './routes/getUsers';
 import createProfile from './routes/signup';
 import signinToProfile from './routes/signin';
 import signoutOfProfile from './routes/signout';
@@ -39,7 +39,11 @@ app.use('/api/users/signup', createProfile());
 app.use('/api/users/signin', signinToProfile());
 app.use('/api/users/signout', signoutOfProfile());
 app.use('/api/users/currentuser', getUserProfile());
-app.use('/api/users', getTasks());
+app.use('/api/users', getUsers());
+
+app.all('*', (req: Request, res: Response) => {
+  throw new NotFoundError('The requested resource could not be found.');
+});
 
 app.use(errorHandler);
 

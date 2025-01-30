@@ -8,7 +8,7 @@ const createTask = () => {
   const createTaskRouter = Router();
 
   createTaskRouter.post(
-    '/',
+    '/create',
     [
       body('task')
         .notEmpty()
@@ -20,10 +20,13 @@ const createTask = () => {
     async (req: Request, res: Response) => {
       const { task } = req.body;
 
-      const newTask = Task.createNewTask({ task, userId: req.user!.id });
+      const newTask = Task.createNewTask({
+        content: task,
+        userId: req.user!.id,
+      });
       await newTask.save();
 
-      res.status(201).json({ newTask });
+      res.status(201).json(newTask);
     }
   );
 

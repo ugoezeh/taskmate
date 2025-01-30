@@ -2,11 +2,11 @@ import { Schema, model, Model, Document } from 'mongoose';
 
 interface TaskDetails {
   userId: string;
-  task: string;
+  content: string;
 }
 
 interface TaskDocument extends Document {
-  task: string;
+  content: string;
   userId: string;
 }
 
@@ -16,7 +16,7 @@ interface TaskModel extends Model<TaskDocument> {
 
 const taskSchema = new Schema(
   {
-    task: {
+    content: {
       type: String,
       required: true,
     },
