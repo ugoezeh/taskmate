@@ -8,6 +8,8 @@ import { NotFoundError, confirmUser } from '@taskmate/shared';
 
 import createTask from './routes/createTask';
 import updateTask from './routes/updateTask';
+import getTask from './routes/getTask';
+import deleteTask from './routes/deleteTask';
 
 const app: Application = express();
 const isProduction = process.env.NODE_ENV === 'production';
@@ -32,6 +34,8 @@ app.use(confirmUser);
 
 app.use('/api/tasks', createTask());
 app.use('/api/tasks', updateTask());
+app.use('/api/tasks', getTask());
+app.use('/api/tasks', deleteTask());
 
 app.all('*', async (req: Request, res: Response) => {
   throw new NotFoundError('The requested resource could not be found.');

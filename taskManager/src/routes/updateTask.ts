@@ -11,7 +11,7 @@ import Task from '../model/task';
 const updateTask = (): Router => {
   const updateTaskRouter: Router = Router();
 
-  updateTaskRouter.post(
+  updateTaskRouter.patch(
     '/:taskId',
     [
       body('task')

@@ -8,6 +8,7 @@ interface TaskDetails {
 interface TaskDocument extends Document {
   content: string;
   userId: string;
+  completed: boolean;
 }
 
 interface TaskModel extends Model<TaskDocument> {
@@ -23,6 +24,10 @@ const taskSchema = new Schema(
     userId: {
       type: String,
       required: true,
+    },
+    completed: {
+      type: Boolean,
+      default: false,
     },
   },
   {
