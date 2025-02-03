@@ -1,0 +1,35 @@
+apiVersion: skaffold/v4beta3
+kind: Config
+metadata:
+  name: taskmate
+build:
+  local:
+    push: false
+  artifacts:
+    - image: ugoezeh/taskmateauth:latest
+      context: taskmateauth
+      docker:
+        dockerfile: Dockerfile
+      sync:
+        manual:
+          - dest: .
+            src: 'src/**/*.ts'
+    - image: ugoezeh/taskmateclient:latest
+      context: taskmateclient
+      docker:
+        dockerfile: Dockerfile
+      sync:
+        manual:
+          - dest: .
+            src: 'src/**/*.ts'
+    - image: ugoezeh/taskmatemanager:latest
+      context: taskmatemanager
+      docker:
+        dockerfile: Dockerfile
+      sync:
+        manual:
+          - dest: .
+            src: 'src/**/*.ts'
+manifests:
+  rawYaml:
+    - ./infra/k8s/*.y*ml

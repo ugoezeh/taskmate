@@ -1,0 +1,56 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: taskmatemanager-depl
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: taskmatemanager
+  template:
+    metadata:
+      labels:
+        app: taskmatemanager
+    spec:
+      containers:
+        - name: taskmatemanager
+          image: ugoezeh/taskmatemanager:latest
+          env:
+            - name: COOKIE_SECRET
+              valueFrom:
+                secretKeyRef:
+                  name: taskmate-secrets
+                  key: COOKIE_SECRET
+            - name: JWT_SECRET
+              valueFrom:
+                secretKeyRef:
+                  name: taskmate-secrets
+                  key: JWT_SECRET
+            - name: DB_URI
+              valueFrom:
+                secretKeyRef:
+                  name: taskmate-secrets
+                  key: DB_URI
+            - name: DB_TEST_URI
+              valueFrom:
+                secretKeyRef:
+                  name: taskmate-secrets
+                  key: DB_TEST_URI
+          resources:
+            limits:
+              memory: '128Mi'
+              cpu: '200m'
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: taskmatemanager-srv
+  labels:
+    app: taskmatemanager
+spec:
+  selector:
+    app: taskmatemanager
+  ports:
+    - protocol: TCP
+      port: 4001
+      targetPort: 4001

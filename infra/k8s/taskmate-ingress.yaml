@@ -1,0 +1,33 @@
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: taskmate-ingress
+  annotations:
+    nginx.ingress.kubernetes.io/use-regex: 'true'
+spec:
+  ingressClassName: nginx
+  rules:
+    - host: taskmate.dev
+      http:
+        paths:
+          - path: /api/users(/.*)?
+            pathType: ImplementationSpecific
+            backend:
+              service:
+                name: taskmateauth-srv
+                port:
+                  number: 4000
+          - path: /api/tasks(/.*)?
+            pathType: ImplementationSpecific
+            backend:
+              service:
+                name: taskmatemanager-srv
+                port:
+                  number: 4001
+          - path: /(/.*)?
+            pathType: ImplementationSpecific
+            backend:
+              service:
+                name: taskmateclient-srv
+                port:
+                  number: 3000

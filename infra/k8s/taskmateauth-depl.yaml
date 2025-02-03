@@ -1,0 +1,56 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: taskmateauth-depl
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: taskmateauth
+  template:
+    metadata:
+      labels:
+        app: taskmateauth
+    spec:
+      containers:
+        - name: taskauth
+          image: ugoezeh/taskmateauth:latest
+          env:
+            - name: COOKIE_SECRET
+              valueFrom:
+                secretKeyRef:
+                  name: taskmate-secrets
+                  key: COOKIE_SECRET
+            - name: JWT_SECRET
+              valueFrom:
+                secretKeyRef:
+                  name: taskmate-secrets
+                  key: JWT_SECRET
+            - name: DB_URI
+              valueFrom:
+                secretKeyRef:
+                  name: taskmate-secrets
+                  key: DB_URI
+            - name: DB_TEST_URI
+              valueFrom:
+                secretKeyRef:
+                  name: taskmate-secrets
+                  key: DB_TEST_URI
+          resources:
+            limits:
+              memory: '128Mi'
+              cpu: '200m'
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: taskmateauth-srv
+  labels:
+    app: taskmateauth
+spec:
+  selector:
+    app: taskmateauth
+  ports:
+    - protocol: TCP
+      port: 4000
+      targetPort: 4000

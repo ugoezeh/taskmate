@@ -1,0 +1,35 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: taskmateclient-depl
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: taskmateclient
+  template:
+    metadata:
+      labels:
+        app: taskmateclient
+    spec:
+      containers:
+        - name: taskauth
+          image: ugoezeh/taskmateclient:latest
+          resources:
+            limits:
+              memory: '128Mi'
+              cpu: '200m'
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: taskmateclient-srv
+  labels:
+    app: taskmateclient
+spec:
+  selector:
+    app: taskmateclient
+  ports:
+    - protocol: TCP
+      port: 3000
+      targetPort: 3000

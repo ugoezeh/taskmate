@@ -1,0 +1,19 @@
+{
+  "name": "taskquery",
+  "version": "1.0.0",
+  "description": "Service for retrieving data, including all tasks and single task for a specific user",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/ugoezeh/taskmate.git"
+  },
+  "author": "Nnamani-Eze Ugochukwu",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/ugoezeh/taskmate/issues"
+  },
+  "homepage": "https://github.com/ugoezeh/taskmate#readme"
+}
