@@ -1,10 +1,37 @@
-import Image from 'next/image';
 import styles from './page.module.css';
 
-export default function Home() {
+const Home = () => {
   return (
     <div className={styles.page}>
-      <h1>The Taskmate App</h1>
+      <h1>Your Tasks</h1>
+      <ul className={styles.centeredList}>
+        <li>
+          This information is used to shape Next roadmap and prioritize
+          features.
+        </li>
+        <li>
+          This information is used to shape Next roadmap and prioritize
+          features.
+        </li>
+        <li>
+          This information is used to shape Next roadmap and prioritize
+          features.
+        </li>
+        <li>
+          This information is used to shape Next roadmap and prioritize
+          features.
+        </li>
+        <li>
+          This information is used to shape Next roadmap and prioritize
+          features.
+        </li>
+        <li>
+          This information is used to shape Next roadmap and prioritize
+          features.
+        </li>
+      </ul>
     </div>
   );
-}
+};
+
+export default Home;

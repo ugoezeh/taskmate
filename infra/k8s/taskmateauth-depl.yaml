@@ -13,7 +13,7 @@ spec:
         app: taskmateauth
     spec:
       containers:
-        - name: taskauth
+        - name: taskmateauth
           image: ugoezeh/taskmateauth:latest
           env:
             - name: COOKIE_SECRET
@@ -26,16 +26,16 @@ spec:
                 secretKeyRef:
                   name: taskmate-secrets
                   key: JWT_SECRET
-            - name: DB_URI
+            - name: TASKMATE_AUTH_DB_URI
               valueFrom:
                 secretKeyRef:
                   name: taskmate-secrets
-                  key: DB_URI
-            - name: DB_TEST_URI
+                  key: TASKMATE_AUTH_DB_URI
+            - name: TASKMATE_AUTH_DB_URI_TEST
               valueFrom:
                 secretKeyRef:
                   name: taskmate-secrets
-                  key: DB_TEST_URI
+                  key: TASKMATE_AUTH_DB_URI_TEST
           resources:
             limits:
               memory: '128Mi'

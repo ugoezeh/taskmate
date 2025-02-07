@@ -6,24 +6,24 @@ build:
   local:
     push: false
   artifacts:
-    - image: ugoezeh/taskmateauth:latest
-      context: taskmateauth
+    - image: ugoezeh/taskmateauth
+      context: taskAuth
       docker:
         dockerfile: Dockerfile
       sync:
         manual:
           - dest: .
             src: 'src/**/*.ts'
-    - image: ugoezeh/taskmateclient:latest
-      context: taskmateclient
+    - image: ugoezeh/taskmateclient
+      context: taskClient
       docker:
         dockerfile: Dockerfile
       sync:
         manual:
           - dest: .
             src: 'src/**/*.ts'
-    - image: ugoezeh/taskmatemanager:latest
-      context: taskmatemanager
+    - image: ugoezeh/taskmatemanager
+      context: taskManager
       docker:
         dockerfile: Dockerfile
       sync:

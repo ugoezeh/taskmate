@@ -13,7 +13,7 @@ spec:
         app: taskmateclient
     spec:
       containers:
-        - name: taskauth
+        - name: taskmateclient
           image: ugoezeh/taskmateclient:latest
           resources:
             limits:

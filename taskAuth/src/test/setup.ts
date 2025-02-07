@@ -4,7 +4,7 @@ import request from 'supertest';
 import app from '../app';
 
 beforeAll(async () => {
-  await mongoose.connect(process.env.DB_TEST_URI!, {});
+  await mongoose.connect(process.env.TASKMATE_AUTH_DB_URI_TEST!, {});
 });
 
 beforeEach(async () => {

@@ -5,7 +5,7 @@ const port = process.env.PORT || 4000;
 
 const start = async () => {
   try {
-    await mongoose.connect(process.env.DB_URI!, {});
+    await mongoose.connect(process.env.TASKMATE_AUTH_DB_URI!, {});
     console.log('Connected to database');
     app.listen(port, () => {
       console.log(`Server is listening on port ${port}`);

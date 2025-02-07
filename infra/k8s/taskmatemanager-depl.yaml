@@ -26,16 +26,16 @@ spec:
                 secretKeyRef:
                   name: taskmate-secrets
                   key: JWT_SECRET
-            - name: DB_URI
+            - name: TASKMATE_MANAGER_DB_URI
               valueFrom:
                 secretKeyRef:
                   name: taskmate-secrets
-                  key: DB_URI
-            - name: DB_TEST_URI
+                  key: TASKMATE_MANAGER_DB_URI
+            - name: TASKMATE_MANAGER_DB_URI_TEST
               valueFrom:
                 secretKeyRef:
                   name: taskmate-secrets
-                  key: DB_TEST_URI
+                  key: TASKMATE_MANAGER_DB_URI_TEST
           resources:
             limits:
               memory: '128Mi'

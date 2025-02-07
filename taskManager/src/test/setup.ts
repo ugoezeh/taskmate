@@ -1,7 +1,7 @@
 import mongoose from 'mongoose';
 
 beforeAll(async () => {
-  await mongoose.connect(process.env.DB_TEST_URI!, {});
+  await mongoose.connect(process.env.TASKMATE_MANAGER_DB_URI_TEST!, {});
 });
 
 beforeEach(async () => {
