@@ -8,7 +8,9 @@ export const requireAuthentication = (
   next: NextFunction
 ) => {
   if (!req.user) {
-    throw new NotAuthorizedError('You must be logged in to access this route');
+    throw new NotAuthorizedError(
+      'You must be logged in to access this resource'
+    );
   }
   next();
 };

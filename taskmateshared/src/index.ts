@@ -11,4 +11,8 @@ export * from './middlewares/userInputValidation';
 export * from './middlewares/confirmUser';
 export * from './middlewares/requireAuthentication';
 
-console.log('Random test log');
+export * from './events/BaseListener';
+export * from './events/BasePublisher';
+export * from './events/TaskCompletedEvent';
+export * from './events/TaskCreatedEvent';
+export * from './events/subjects';
