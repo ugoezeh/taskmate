@@ -1,12 +1,12 @@
 import { Stan, Message } from 'node-nats-streaming';
-import Subjects from './subjects';
+import { Subjects } from './subjects';
 
 interface Event {
   subject: Subjects;
   data: any;
 }
 
-abstract class BaseListener<T extends Event> {
+export abstract class BaseListener<T extends Event> {
   abstract subject: T['subject'];
   abstract queueGroupName: string;
   abstract onMessage(data: T['data'], msg: Message): void;
@@ -33,7 +33,11 @@ abstract class BaseListener<T extends Event> {
     );
 
     subscription.on('message', (msg: Message) => {
-      console.log(`Message received: ${this.subject} / ${this.queueGroupName}`);
+      console.log(
+        `Message received: ${this.subject} / ${
+          this.queueGroupName
+        } / ${this.parseMessage(msg)}`
+      );
 
       const parsedData = this.parseMessage(msg);
       this.onMessage(parsedData, msg);
@@ -48,5 +52,3 @@ abstract class BaseListener<T extends Event> {
       : JSON.parse(data.toString('utf-8'));
   }
 }
-
-export default BaseListener;

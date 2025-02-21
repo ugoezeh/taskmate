@@ -25,4 +25,9 @@ __exportStar(require("./middlewares/errorHandler"), exports);
 __exportStar(require("./middlewares/userInputValidation"), exports);
 __exportStar(require("./middlewares/confirmUser"), exports);
 __exportStar(require("./middlewares/requireAuthentication"), exports);
+__exportStar(require("./events/BaseListener"), exports);
+__exportStar(require("./events/BasePublisher"), exports);
+__exportStar(require("./events/TaskCompletedEvent"), exports);
+__exportStar(require("./events/TaskCreatedEvent"), exports);
+__exportStar(require("./events/subjects"), exports);
 //# sourceMappingURL=index.js.map

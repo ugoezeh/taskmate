@@ -3,6 +3,8 @@ import { body } from 'express-validator';
 import { requireAuthentication, userInputValidation } from '@taskmate/shared';
 
 import Task from '../model/task';
+import { TaskCreatedPublisher } from '../events/TaskCreatedPublisher';
+import natsWrapper from '../natsWrapper';
 
 const createTask = () => {
   const createTaskRouter = Router();
@@ -25,6 +27,12 @@ const createTask = () => {
         userId: req.user!.id,
       });
       await newTask.save();
+      await new TaskCreatedPublisher(natsWrapper.client).publish({
+        id: newTask.id,
+        userId: newTask.userId,
+        content: newTask.content,
+        version: newTask.version,
+      });
 
       res.status(201).json(newTask);
     }

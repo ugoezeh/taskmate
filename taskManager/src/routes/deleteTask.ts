@@ -1,7 +1,9 @@
 import { Router, Request, Response } from 'express';
-
 import Task from '../model/task';
 import { NotAuthorizedError, NotFoundError } from '@taskmate/shared';
+
+import { TaskCompletedPublisher } from '../events/TaskCompletedPublisher';
+import natsWrapper from '../natsWrapper';
 
 const deleteTask = (): Router => {
   const deleteTaskRouter: Router = Router();
@@ -21,6 +23,11 @@ const deleteTask = (): Router => {
 
     foundTask.completed = true;
     await foundTask.save();
+
+    await new TaskCompletedPublisher(natsWrapper.client).publish({
+      id: foundTask.id,
+      version: foundTask.version,
+    });
 
     res.status(200).json({});
   });

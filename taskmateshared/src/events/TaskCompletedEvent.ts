@@ -1,6 +1,6 @@
-import Subjects from './subjects';
+import { Subjects } from './subjects';
 
-interface TaskCompletedEvent {
+export interface TaskCompletedEvent {
   subject: Subjects.TaskCompleted;
   data: {
     id: string;

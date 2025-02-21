@@ -7,3 +7,8 @@ export * from './middlewares/errorHandler';
 export * from './middlewares/userInputValidation';
 export * from './middlewares/confirmUser';
 export * from './middlewares/requireAuthentication';
+export * from './events/BaseListener';
+export * from './events/BasePublisher';
+export * from './events/TaskCompletedEvent';
+export * from './events/TaskCreatedEvent';
+export * from './events/subjects';

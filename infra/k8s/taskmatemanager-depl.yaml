@@ -26,6 +26,20 @@ spec:
                 secretKeyRef:
                   name: taskmate-secrets
                   key: JWT_SECRET
+            - name: NATS_CLIENT_ID
+              valueFrom:
+                fieldRef:
+                  fieldPath: metadata.name
+            - name: NATS_CLUSTER_ID
+              valueFrom:
+                secretKeyRef:
+                  name: taskmate-secrets
+                  key: NATS_CLUSTER_ID
+            - name: NATS_URL
+              valueFrom:
+                secretKeyRef:
+                  name: taskmate-secrets
+                  key: NATS_URL
             - name: TASKMATE_MANAGER_DB_URI
               valueFrom:
                 secretKeyRef:
@@ -37,9 +51,12 @@ spec:
                   name: taskmate-secrets
                   key: TASKMATE_MANAGER_DB_URI_TEST
           resources:
+            requests:
+              cpu: '100m'
+              memory: '256Mi'
             limits:
-              memory: '128Mi'
-              cpu: '200m'
+              cpu: '500m'
+              memory: '512Mi'
 ---
 apiVersion: v1
 kind: Service

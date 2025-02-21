@@ -1,6 +1,6 @@
-import Subjects from './subjects';
+import { Subjects } from './subjects';
 
-interface TaskCreatedEvent {
+export interface TaskCreatedEvent {
   subject: Subjects.taskCreated;
   data: {
     id: string;
@@ -9,5 +9,3 @@ interface TaskCreatedEvent {
     content: string;
   };
 }
-
-export default TaskCreatedEvent;

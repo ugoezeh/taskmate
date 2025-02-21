@@ -4,7 +4,7 @@ import 'express-async-errors';
 import express, { Application, Request, Response } from 'express';
 import cookieSession from 'cookie-session';
 import morgan from 'morgan';
-import { NotFoundError, confirmUser } from '@taskmate/shared';
+import { NotFoundError, confirmUser, errorHandler } from '@taskmate/shared';
 
 import createTask from './routes/createTask';
 import updateTask from './routes/updateTask';
@@ -44,5 +44,7 @@ app.use('/api/tasks', deleteAllTasks());
 app.all('*', async (req: Request, res: Response) => {
   throw new NotFoundError('The requested resource could not be found.');
 });
+
+app.use(errorHandler);
 
 export default app;

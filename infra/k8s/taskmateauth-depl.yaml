@@ -37,9 +37,12 @@ spec:
                   name: taskmate-secrets
                   key: TASKMATE_AUTH_DB_URI_TEST
           resources:
+            requests:
+              cpu: '100m'
+              memory: '256Mi'
             limits:
-              memory: '128Mi'
-              cpu: '200m'
+              cpu: '500m'
+              memory: '512Mi'
 ---
 apiVersion: v1
 kind: Service

@@ -1,4 +1,5 @@
 import { Schema, model, Model, Document } from 'mongoose';
+import { updateIfCurrentPlugin } from 'mongoose-update-if-current';
 
 interface TaskDetails {
   userId: string;
@@ -9,6 +10,7 @@ interface TaskDocument extends Document {
   content: string;
   userId: string;
   completed: boolean;
+  version: number;
 }
 
 interface TaskModel extends Model<TaskDocument> {
@@ -41,6 +43,9 @@ const taskSchema = new Schema(
     },
   }
 );
+
+taskSchema.set('versionKey', 'version');
+taskSchema.plugin(updateIfCurrentPlugin);
 
 taskSchema.statics.createNewTask = (props: TaskDetails) => {
   return new Task(props);
