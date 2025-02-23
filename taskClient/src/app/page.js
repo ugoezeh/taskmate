@@ -18,7 +18,7 @@ const Home = ({ user }) => {
         console.log('Home: user ', user);
         console.log('Home: user ', user);
 
-        const { data } = await axios.get('/api/tasks');
+        const { data } = await axios.get('/api/queries');
         console.log('Home Data: ', data);
         if (isMounted) {
           setTasks(data);
@@ -39,9 +39,14 @@ const Home = ({ user }) => {
       <ul className={styles.centeredList}>
         {tasks.length > 0 &&
           tasks.map((task) => {
-            return <li key={task.id}>{task.content}</li>;
+            return (
+              <div key={task.id}>
+                <li>{task.content}</li>
+                <button>Delete</button>
+              </div>
+            );
           })}
-        {/* {tasks.length === 0 && <h2>Click On Add Task To Start Adding Tasks</h2>} */}
+        {tasks.length === 0 && <h2>Click On Add Task To Start Adding Tasks</h2>}
       </ul>
     </div>
   );

@@ -16,7 +16,7 @@ class BaseListener {
     listen() {
         const subscription = this.client.subscribe(this.subject, this.queueGroupName, this.subscriptionOptions());
         subscription.on('message', (msg) => {
-            console.log(`Message received: ${this.subject} / ${this.queueGroupName}`);
+            console.log(`Message received: ${this.subject} / ${this.queueGroupName} / ${this.parseMessage(msg)}`);
             const parsedData = this.parseMessage(msg);
             this.onMessage(parsedData, msg);
         });

@@ -16,6 +16,11 @@ interface TaskDocument extends Document {
 
 interface TaskModel extends Model<TaskDocument> {
   createNewTask(props: TaskDetails): TaskDocument;
+  findByEventData(eventData: {
+    id: string;
+    version: number;
+    userId: string;
+  }): Promise<TaskDocument | null>;
 }
 
 const taskSchema = new Schema(
@@ -52,6 +57,17 @@ const taskSchema = new Schema(
 taskSchema.set('versionKey', 'version');
 taskSchema.plugin(updateIfCurrentPlugin);
 
+taskSchema.statics.findByEventData = (eventData: {
+  id: string;
+  version: number;
+  userId: string;
+}) => {
+  return Task.findOne({
+    _id: eventData.id,
+    version: eventData.version - 1,
+    userId: eventData.userId,
+  });
+};
 taskSchema.statics.createNewTask = (props: TaskDetails) => {
   return new Task(props);
 };

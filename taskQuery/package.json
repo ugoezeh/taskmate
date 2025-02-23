@@ -20,7 +20,7 @@
   },
   "homepage": "https://github.com/ugoezeh/taskmate#readme",
   "dependencies": {
-    "@taskmate/shared": "^1.0.13",
+    "@taskmate/shared": "^1.0.19",
     "cookie-session": "^2.1.0",
     "dotenv": "^16.4.7",
     "express": "^4.21.2",

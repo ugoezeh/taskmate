@@ -6,7 +6,7 @@
   border: 1px solid #ccc;
   border-radius: 8px;
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-  height: 100vh;
+  min-height: 100vh;
   background-color: #f5f5f5;
 }
 
@@ -15,15 +15,25 @@
   padding: 0;
   margin: 0;
   display: flex;
-  flex-direction: column;
+  flex-direction: row;
   align-items: center;
+  min-height: 100px;
+  min-width: 100px;
 }
 
-.centeredList li {
-  margin: 10px 0;
-  padding: 20px;
+.centeredList div {
+  margin: 10px;
+  padding: 10px;
   border: 1px solid #ccc;
   border-radius: 8px;
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
   background: white;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.centeredList div li {
+  margin-right: 10px;
 }

@@ -4,6 +4,7 @@ exports.Subjects = void 0;
 var Subjects;
 (function (Subjects) {
     Subjects["taskCreated"] = "Task:Created";
+    Subjects["taskUpdated"] = "Task:Updated";
     Subjects["TaskCompleted"] = "Task:Completed";
 })(Subjects || (exports.Subjects = Subjects = {}));
 //# sourceMappingURL=subjects.js.map

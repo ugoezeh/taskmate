@@ -1,10 +1,15 @@
 import { config } from 'dotenv';
 config();
 
+import 'express-async-errors';
+
 import express, { Application, Request, Response } from 'express';
 import morgan from 'morgan';
 import cookieSession from 'cookie-session';
 import { NotFoundError, errorHandler, confirmUser } from '@taskmate/shared';
+
+import getAllTasks from './routes/getAllTasks';
+import getTask from './routes/getTask';
 
 const app: Application = express();
 const isProduction = process.env.NODE_ENV === 'production';
@@ -26,6 +31,9 @@ app.use(
   })
 );
 app.use(confirmUser);
+
+app.use('/api/queries', getAllTasks());
+app.use('/api/queries', getTask());
 
 app.all('*', (req: Request, res: Response) => {
   throw new NotFoundError('The requested resource could not be found.');

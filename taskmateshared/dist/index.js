@@ -29,5 +29,6 @@ __exportStar(require("./events/BaseListener"), exports);
 __exportStar(require("./events/BasePublisher"), exports);
 __exportStar(require("./events/TaskCompletedEvent"), exports);
 __exportStar(require("./events/TaskCreatedEvent"), exports);
+__exportStar(require("./events/TaskUpdatedEvent"), exports);
 __exportStar(require("./events/subjects"), exports);
 //# sourceMappingURL=index.js.map
