@@ -27,6 +27,7 @@ const deleteTask = (): Router => {
     await new TaskCompletedPublisher(natsWrapper.client).publish({
       id: foundTask.id,
       version: foundTask.version,
+      userId: foundTask.userId,
     });
 
     res.status(200).json({});

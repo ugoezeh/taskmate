@@ -6,7 +6,10 @@ import {
   NotFoundError,
   NotAuthorizedError,
 } from '@taskmate/shared';
+
 import Task from '../model/task';
+import TaskUpdatedPublisher from '../events/TaskUpdatedPublisher';
+import natsWrapper from '../natsWrapper';
 
 const updateTask = (): Router => {
   const updateTaskRouter: Router = Router();
@@ -39,6 +42,12 @@ const updateTask = (): Router => {
       foundTask['content'] = task;
 
       await foundTask.save();
+      await new TaskUpdatedPublisher(natsWrapper.client).publish({
+        id: foundTask.id,
+        userId: foundTask.userId,
+        content: foundTask.content,
+        version: foundTask.version,
+      });
       res.status(200).json(foundTask);
     }
   );

@@ -16,13 +16,6 @@ const start = async (): Promise<void> => {
     throw new Error('NATS_CLUSTER_ID must be defined');
   }
   try {
-    console.log(
-      'Nats Cluster Id, Client Id, Url: ',
-      process.env.NATS_CLUSTER_ID,
-      process.env.NATS_CLIENT_ID,
-      process.env.NATS_URL
-    );
-    console.log('Connecting to NATS Index');
     await natsWrapper.connect(
       process.env.NATS_CLUSTER_ID,
       process.env.NATS_CLIENT_ID,
@@ -36,16 +29,18 @@ const start = async (): Promise<void> => {
 
     process.on('SIGINT', () => natsWrapper.client.close());
     process.on('SIGTERM', () => natsWrapper.client.close());
-
-    // await mongoose.connect(process.env.TASKMATE_MANAGER_DB_URI!, {});
-    // console.log('Connected to the database.');
   } catch (err) {
     console.log('Error connecting to NATS: ', err);
   }
 
   app.listen(PORT, async () => {
-    await mongoose.connect(process.env.TASKMATE_MANAGER_DB_URI!, {});
-    console.log('Connected to the database taskmatemanager.');
+    try {
+      await mongoose.connect(process.env.TASKMATE_MANAGER_DB_URI!, {});
+      console.log('Connected to the database.');
+    } catch (err) {
+      console.log(`Error connecting to MongoDB: ${err}`);
+    }
+
     console.log(`Server is running on port: ${PORT}`);
   });
 };
